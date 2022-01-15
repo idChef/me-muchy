@@ -4,8 +4,8 @@
         <a href="/"><img class="h-16 cursor-pointer" src="static/logo-memuchy.svg" alt="" /></a>
       </div>
       <ul class="lg:flex hidden items-center space-x-10">
-        <a href="/login">
-          <li class="text-lg font-semibold hover:text-red-500 transition duration-200 cursor-pointer">Login</li>
+        <a href="/register">
+          <li class="text-lg font-semibold hover:text-red-500 transition duration-200 cursor-pointer">Konto</li>
         </a>
       </ul>
       <div class="lg:hidden">
