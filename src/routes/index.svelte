@@ -1,1 +1,9 @@
-<h1 class="text-3xl font-bold underline">Hello world!</h1>
+<script>
+import Meme from "$lib/components/Meme/Meme.svelte";
+
+</script>
+
+<Meme/>
+<Meme/>
+<Meme/>
+<Meme/>
