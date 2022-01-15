@@ -1,10 +1,8 @@
 <script lang="ts">
-	import Spinner from '$lib/basics/Spinner.svelte';
-
 	export let title = 'Title undefined';
 	export let username = 'u/username';
 	export let votes = undefined;
-	export let isLoading = false;
+	export let isLoading = true;
     export let image = "https://c.tenor.com/wFOq9TrnBxgAAAAC/you-wouldnt-get-it-joker.gif";
 </script>
 
