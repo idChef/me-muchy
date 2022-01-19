@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+    --navbar-height: 80px;
+}
+
+.content-full-no-nav{
+    height: calc(100vh - var(--navbar-height));
+}

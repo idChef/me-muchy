@@ -1,10 +1,10 @@
 <nav class="bg-gray-100 shadow-md">
     <div class="flex justify-between items-center bg-white py-2 lg:px-40 md:px-20 px-10">
       <div class="">
-        <a href="/"><img class="h-16 cursor-pointer" src="static/logo-memuchy.svg" alt="" /></a>
+        <a href="/"><img class="h-16 cursor-pointer" src="/logo-memuchy.svg" alt="" /></a>
       </div>
       <ul class="lg:flex hidden items-center space-x-10">
-        <a href="/register">
+        <a href="/auth/register">
           <li class="text-lg font-semibold hover:text-red-500 transition duration-200 cursor-pointer">Konto</li>
         </a>
       </ul>
