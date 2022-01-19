@@ -6,7 +6,7 @@
 	export let image = 'https://c.tenor.com/wFOq9TrnBxgAAAAC/you-wouldnt-get-it-joker.gif';
 </script>
 
-<div class=" rounded overflow-hidden border w-full lg:w-6/12 md:w-6/12 bg-white mx-auto mp mt-16">
+<div class=" rounded overflow-hidden border w-full lg:w-6/12 md:w-6/12 bg-white mx-auto mp mt-16 hover:border-slate-500 hover:cursor-pointer">
 	<div class="w-full flex justify-between p-3">
 		<div class="{isLoading && 'animate-pulse'} flex flex-col w-full">
 			{#if isLoading}

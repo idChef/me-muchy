@@ -64,7 +64,7 @@
 		/>
 	</div>
 
-	<div class="mt-6 block p-5 text-sm md:font-sans text-xs text-gray-800">
+	<div class="mt-6 block p-5 md:font-sans text-xs text-gray-800">
 		<input type="checkbox" class="inline-block border-0  " />
 		<span
 			>Tworząc konto zgadzasz się na nasz
