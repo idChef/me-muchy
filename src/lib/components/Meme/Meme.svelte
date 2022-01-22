@@ -1,12 +1,25 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
+	const handleClick = () => {
+		if (shouldNavigate) goto(`/post/${postId}`);
+	};
+
+	export let postId = '404';
 	export let title = 'Title undefined';
 	export let username = 'username';
 	export let votes = undefined;
 	export let isLoading = false;
 	export let image = '';
+	export let isPostMode = false;
+	let shouldNavigate = !isPostMode;
 </script>
 
-<div class=" rounded overflow-hidden border w-full lg:w-6/12 md:w-6/12 bg-white mx-auto mp mt-16 hover:border-slate-500 hover:cursor-pointer">
+<div
+	class="meme-container {shouldNavigate &&
+		'hover:border-slate-500 hover:cursor-pointer'}"
+	on:click={handleClick}
+>
 	<div class="w-full flex justify-between p-3">
 		<div class="{isLoading && 'animate-pulse'} flex flex-col w-full">
 			{#if isLoading}
@@ -28,7 +41,7 @@
 	<div class="flex p-3 items-center">
 		<img
 			class="w-8 h-8 grayscale hover:grayscale-0 hover:cursor-pointer"
-			src="static/pogchamp.png"
+			src="/pogchamp.png"
 			alt="upvote"
 		/>
 		<div class="px-2">
@@ -41,7 +54,7 @@
 		</div>
 		<img
 			class="w-8 h-8 grayscale hover:grayscale-0 hover:cursor-pointer"
-			src="static/biblethump.png"
+			src="/biblethump.png"
 			alt="downvote"
 		/>
 		{#if isLoading}
@@ -51,3 +64,7 @@
 		{/if}
 	</div>
 </div>
+
+<style>
+	
+</style>
