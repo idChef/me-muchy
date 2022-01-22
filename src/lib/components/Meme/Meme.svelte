@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let title = 'Title undefined';
-	export let username = 'u/username';
+	export let username = 'username';
 	export let votes = undefined;
 	export let isLoading = false;
 	export let image = 'https://c.tenor.com/wFOq9TrnBxgAAAAC/you-wouldnt-get-it-joker.gif';
@@ -16,7 +16,7 @@
 				</div>
 			{:else}
 				<span class="pt-1 ml-2 font-bold text-md">{title}</span>
-				<span class="pt-1 ml-2 font-bold text-xs">{username}</span>
+				<span class="pt-1 ml-2 font-bold text-xs">u/{username}</span>
 			{/if}
 		</div>
 	</div>
