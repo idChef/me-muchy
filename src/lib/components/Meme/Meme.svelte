@@ -3,7 +3,7 @@
 	export let username = 'username';
 	export let votes = undefined;
 	export let isLoading = false;
-	export let image = 'https://c.tenor.com/wFOq9TrnBxgAAAAC/you-wouldnt-get-it-joker.gif';
+	export let image = '';
 </script>
 
 <div class=" rounded overflow-hidden border w-full lg:w-6/12 md:w-6/12 bg-white mx-auto mp mt-16 hover:border-slate-500 hover:cursor-pointer">
@@ -20,10 +20,10 @@
 			{/if}
 		</div>
 	</div>
-	{#if isLoading}
-		<div class="w-full bg-neutral-400 h-80 animate-pulse" />
+	{#if isLoading || !image}
+		<div class="w-full bg-neutral-400 h-64 animate-pulse" />
 	{:else}
-		<img class="w-full bg-cover" src={image} alt={title} />
+		<img class="w-full bg-cover" src={image} />
 	{/if}
 	<div class="flex p-3 items-center">
 		<img
