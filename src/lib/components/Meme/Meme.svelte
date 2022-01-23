@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+import AddComment from './Comments/AddComment.svelte';
 
 	const handleClick = () => {
 		if (shouldNavigate) goto(`/post/${postId}`);
@@ -63,8 +64,7 @@
 			<div class="ml-auto text-sm">0 comments</div>
 		{/if}
 	</div>
+	{#if isPostMode}
+	<AddComment/>
+	{/if}
 </div>
-
-<style>
-	
-</style>
