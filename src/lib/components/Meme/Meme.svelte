@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+import Comment from './Comments/Comment.svelte';
 import AddComment from './Comments/AddComment.svelte';
 
 	const handleClick = () => {
@@ -66,5 +67,12 @@ import AddComment from './Comments/AddComment.svelte';
 	</div>
 	{#if isPostMode}
 	<AddComment/>
+	<div class="flex flex-col gap-3 pb-6 divide-y">
+		<Comment/>
+		<Comment/>
+		<Comment/>
+		<Comment/>
+		<Comment/>
+	</div>
 	{/if}
 </div>
