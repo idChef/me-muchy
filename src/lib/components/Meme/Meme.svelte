@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-import Comment from './Comments/Comment.svelte';
-import AddComment from './Comments/AddComment.svelte';
+	import Comment from './Comments/Comment.svelte';
+	import AddComment from './Comments/AddComment.svelte';
+	import AnimatedIcon from '../AnimatedIcon.svelte';
 
 	const handleClick = () => {
 		if (shouldNavigate) goto(`/post/${postId}`);
@@ -18,8 +19,7 @@ import AddComment from './Comments/AddComment.svelte';
 </script>
 
 <div
-	class="meme-container {shouldNavigate &&
-		'hover:border-slate-500 hover:cursor-pointer'}"
+	class="meme-container {shouldNavigate && 'hover:border-slate-500 hover:cursor-pointer'}"
 	on:click={handleClick}
 >
 	<div class="w-full flex justify-between p-3">
@@ -41,10 +41,10 @@ import AddComment from './Comments/AddComment.svelte';
 		<img class="w-full bg-cover" src={image} />
 	{/if}
 	<div class="flex p-3 items-center">
-		<img
-			class="w-8 h-8 grayscale hover:grayscale-0 hover:cursor-pointer"
-			src="/pogchamp.png"
-			alt="upvote"
+		<AnimatedIcon
+			class="w-8 h-8  grayscale object-contain hover:cursor-pointer"
+			animatedPath="/icons/pogfish.gif"
+			staticPath="/icons/pogfish.png"
 		/>
 		<div class="px-2">
 			{#if votes}
@@ -54,10 +54,10 @@ import AddComment from './Comments/AddComment.svelte';
 				<div class="w-4 h-2 bg-neutral-400 rounded ml-auto animate-pulse" />
 			{/if}
 		</div>
-		<img
-			class="w-8 h-8 grayscale hover:grayscale-0 hover:cursor-pointer"
-			src="/biblethump.png"
-			alt="downvote"
+		<AnimatedIcon
+			class="w-8 h-8  grayscale object-fill hover:cursor-pointer"
+			animatedPath="/icons/biblethump.gif"
+			staticPath="/icons/biblethump.png"
 		/>
 		{#if isLoading}
 			<div class="w-24 h-2 bg-neutral-400 rounded ml-auto animate-pulse" />
@@ -66,13 +66,13 @@ import AddComment from './Comments/AddComment.svelte';
 		{/if}
 	</div>
 	{#if isPostMode}
-	<AddComment/>
-	<div class="flex flex-col gap-3 pb-6 divide-y">
-		<Comment/>
-		<Comment/>
-		<Comment/>
-		<Comment/>
-		<Comment/>
-	</div>
+		<AddComment />
+		<div class="flex flex-col gap-3 pb-6 divide-y">
+			<Comment />
+			<Comment />
+			<Comment />
+			<Comment />
+			<Comment />
+		</div>
 	{/if}
 </div>
