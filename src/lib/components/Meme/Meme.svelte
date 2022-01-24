@@ -3,21 +3,67 @@
 	import Comment from './Comments/Comment.svelte';
 	import AddComment from './Comments/AddComment.svelte';
 	import AnimatedIcon from '../AnimatedIcon.svelte';
+	import type { Post } from '$lib/types/api';
 
 	const handleClick = () => {
 		if (shouldNavigate) goto(`/post/${postId}`);
 	};
 
-	export let postId = '404';
-	export let title = 'Title undefined';
-	export let username = 'username';
-	export let votes = undefined;
+	export let postId: string = '404';
+	export let title: string = 'Title undefined';
+	export let username: string = 'username';
+	export let upvotes: number = 0;
+	export let downvotes: number = 0;
+
+	$: votes = upvotes - downvotes;
+
+	console.log(votes);
+
 	export let isLoading = false;
 	export let image = '';
 	export let isPostMode = false;
 	let shouldNavigate = !isPostMode;
+
+	const check = () => {
+		console.log(`votes: ${votes}`);
+		console.log(`upvotes: ${upvotes}`);
+		console.log(`downvotes: ${downvotes}`);
+	};
+
+	const handleUpvote = async (e) => {
+		e.stopPropagation();
+		try {
+			const res = await fetch(
+				`https://memuchyapi.azurewebsites.net/Post/LikePost?postId=${postId}`,
+				{
+					method: 'PUT'
+				}
+			);
+
+			if (res.ok) upvotes++;
+		} catch (e) {
+			console.error(e);
+		}
+	};
+
+	const handleDownvote = async (e) => {
+		e.stopPropagation();
+		try {
+			const res = await fetch(
+				`https://memuchyapi.azurewebsites.net/Post/UnlikePost?postId=${postId}`,
+				{
+					method: 'PUT'
+				}
+			);
+
+			if (res.ok) downvotes++;
+		} catch (e) {
+			console.error(e);
+		}
+	};
 </script>
 
+<button on:click={check}>check votes</button>
 <div
 	class="meme-container {shouldNavigate && 'hover:border-slate-500 hover:cursor-pointer'}"
 	on:click={handleClick}
@@ -45,19 +91,21 @@
 			class="w-8 h-8  grayscale object-contain hover:cursor-pointer"
 			animatedPath="/icons/pogfish.gif"
 			staticPath="/icons/pogfish.png"
+			onClick={handleUpvote}
 		/>
 		<div class="px-2">
-			{#if votes}
-				{#if votes > 0}+{:else}-{/if}
-				{votes}
-			{:else}
+			{#if isLoading}
 				<div class="w-4 h-2 bg-neutral-400 rounded ml-auto animate-pulse" />
+			{:else}
+				{#if votes > 0}+{/if}
+				{votes}
 			{/if}
 		</div>
 		<AnimatedIcon
 			class="w-8 h-8  grayscale object-fill hover:cursor-pointer"
 			animatedPath="/icons/biblethump.gif"
 			staticPath="/icons/biblethump.png"
+			onClick={handleDownvote}
 		/>
 		{#if isLoading}
 			<div class="w-24 h-2 bg-neutral-400 rounded ml-auto animate-pulse" />
