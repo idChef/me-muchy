@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import Input from '$lib/components/Input.svelte';
 	import Meme from '$lib/components/Meme/Meme.svelte';
 	import { goto } from '$app/navigation';
+	import { Post } from '$lib/types/api';
 
 	let title;
 	let username = 'maxiking';
@@ -23,8 +24,8 @@
 			})
 		});
 
-		const newPost = res.json();
-		// goto(`/post/${newPost.id}`);
+		const newPost: Post = await res.json();
+		goto(`/post/${newPost.id}`);
 	};
 </script>
 
@@ -40,7 +41,10 @@
 				<Input name="URL Obrazka/Gifa" bind:value={url} />
 				<div
 					class="bg-black hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
-					on:click={handlePostSubmit}>Dodaj mema</div>
+					on:click={handlePostSubmit}
+				>
+					Dodaj mema
+				</div>
 			</form>
 		</div>
 	</div>
