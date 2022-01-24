@@ -1,30 +1,34 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
 	let username: string;
 	let email: string;
 	let password: string;
 	let error: string | undefined;
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
 
 		error = undefined;
 
-		if (!username) {
-			error = 'Nie zdefiniowano nazwy uzytkownika!';
-			return;
-		}
+		try {
+			const res = await fetch(`https://memuchyapi.azurewebsites.net/User/CreateUser`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					userName: username,
+					password: password,
+					email: email
+				})
+			});
 
-		if (!email) {
-			error = 'Wprowadz adres email!';
-			return;
+			if (res.ok) goto(`/`);
+		} catch (error) {
+			console.error(error);
 		}
-
-		if (!password) {
-			error = 'Hasło jest wymagane dla rejestracji!';
-			return; 
-		}
-
-        console.log('TODO: Wysyłanie rejestracji');
 	};
 </script>
 

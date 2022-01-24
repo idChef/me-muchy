@@ -10,22 +10,28 @@
 
 	const handlePostSubmit = async (e) => {
 		e.preventDefault();
-		const res = await fetch(`https://memuchyapi.azurewebsites.net/Post/CreatePost`, {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				user_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-				title: title,
-				picture: url,
-				tag: 'string'
-			})
-		});
+		try {
+			const res = await fetch(`https://memuchyapi.azurewebsites.net/Post/CreatePost`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					user_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+					title: title,
+					picture: url,
+					tag: 'string'
+				})
+			});
 
-		const newPost: Post = await res.json();
-		goto(`/post/${newPost.id}`);
+			if (res.ok) {
+				const newPost: Post = await res.json();
+				goto(`/post/${newPost.id}`);
+			}
+		} catch (e) {
+			console.error(e);
+		}
 	};
 </script>
 
@@ -39,12 +45,7 @@
 			<form class="mt-8 space-y-3" action="#" method="POST">
 				<Input name="Tytuł" bind:value={title} />
 				<Input name="URL Obrazka/Gifa" bind:value={url} />
-				<div
-					class="btn"
-					on:click={handlePostSubmit}
-				>
-					Dodaj mema
-				</div>
+				<div class="btn" on:click={handlePostSubmit}>Dodaj mema</div>
 			</form>
 		</div>
 	</div>
