@@ -2,7 +2,7 @@
 	import Input from '$lib/components/Input.svelte';
 	import Meme from '$lib/components/Meme/Meme.svelte';
 	import { goto } from '$app/navigation';
-	import { Post } from '$lib/types/api';
+	import type { Post } from '$lib/types/api';
 
 	let title;
 	let username = 'maxiking';
