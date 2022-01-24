@@ -1,4 +1,4 @@
-<div class="flex content-full-no-nav">
+<div class="flex content-full-no-nav nav-push">
 	<div
 		class="w-1/2 bg-cover bg-bottom md:block hidden"
 		style="background-image:  url(/cat-pic.jpeg)"

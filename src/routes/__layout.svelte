@@ -5,4 +5,6 @@ import Navbar from '$lib/basics/Navbar.svelte';
 </script>
 
 <Navbar/>
-<slot />
+<div class="nav-push">
+	<slot />
+</div>

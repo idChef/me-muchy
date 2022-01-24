@@ -18,7 +18,7 @@
 	});
 </script>
 
-<div class="nav-push">
+<div class="pt-14">
 {#if isLoading}
 	<Meme isPostMode={true} {isLoading} />
 {:else}
