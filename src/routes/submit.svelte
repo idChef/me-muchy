@@ -29,8 +29,8 @@
 	};
 </script>
 
-<div class="flex content-full-no-nav">
-	<div class="md:w-1/2 max-w-lg mx-auto px-4 py-5 shadow-none">
+<div class="flex content-full-no-nav flex-col items-center md:flex-row">
+	<div class="md:w-1/2 max-w-lg mx-auto px-4  pt-5 md:py-5 shadow-none">
 		<div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
 			<div class="text-center">
 				<h2 class="mt-5 text-2xl font-bold text-gray-900">Stwórz swojego mema!</h2>
@@ -48,7 +48,7 @@
 			</form>
 		</div>
 	</div>
-	<div class="w-1/2 bg-cover bg-bottom md:block hidden">
+	<div class="w-1/2 bg-cover bg-bottom md:block">
 		<Meme {title} {username} image={url} />
 	</div>
 </div>

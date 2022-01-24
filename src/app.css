@@ -8,10 +8,14 @@
 
 @layer components {
     .meme-container {
-      @apply rounded overflow-hidden border w-11/12  md:w-6/12 lg:w-4/12 bg-white mx-auto mt-16;
+      @apply rounded overflow-hidden border w-11/12  md:w-6/12 lg:w-4/12 bg-white mx-auto;
     }
     
     .btn {
       @apply bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded hover:cursor-pointer;
+    }
+
+    .nav-push{
+      margin-top: calc(var(--navbar-height) + 3.5rem);
     }
   }
