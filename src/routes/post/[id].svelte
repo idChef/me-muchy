@@ -18,7 +18,7 @@
 	});
 </script>
 
-<div class="pt-14">
+<div class="py-14">
 {#if isLoading}
 	<Meme isPostMode={true} {isLoading} />
 {:else}
