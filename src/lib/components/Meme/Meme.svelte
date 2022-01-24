@@ -17,18 +17,11 @@
 
 	$: votes = upvotes - downvotes;
 
-	console.log(votes);
 
 	export let isLoading = false;
 	export let image = '';
 	export let isPostMode = false;
 	let shouldNavigate = !isPostMode;
-
-	const check = () => {
-		console.log(`votes: ${votes}`);
-		console.log(`upvotes: ${upvotes}`);
-		console.log(`downvotes: ${downvotes}`);
-	};
 
 	const handleUpvote = async (e) => {
 		e.stopPropagation();
@@ -63,7 +56,6 @@
 	};
 </script>
 
-<button on:click={check}>check votes</button>
 <div
 	class="meme-container {shouldNavigate && 'hover:border-slate-500 hover:cursor-pointer'}"
 	on:click={handleClick}

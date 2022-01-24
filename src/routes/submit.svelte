@@ -40,7 +40,7 @@
 				<Input name="Tytuł" bind:value={title} />
 				<Input name="URL Obrazka/Gifa" bind:value={url} />
 				<div
-					class="bg-black hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+					class="btn"
 					on:click={handlePostSubmit}
 				>
 					Dodaj mema
