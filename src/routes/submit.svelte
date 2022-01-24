@@ -1,10 +1,31 @@
 <script>
 	import Input from '$lib/components/Input.svelte';
 	import Meme from '$lib/components/Meme/Meme.svelte';
+	import { goto } from '$app/navigation';
 
 	let title;
 	let username = 'maxiking';
 	let url = '';
+
+	const handlePostSubmit = async (e) => {
+		e.preventDefault();
+		const res = await fetch(`https://memuchyapi.azurewebsites.net/Post/CreatePost`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				user_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+				title: title,
+				picture: url,
+				tag: 'string'
+			})
+		});
+
+		const newPost = res.json();
+		// goto(`/post/${newPost.id}`);
+	};
 </script>
 
 <div class="flex content-full-no-nav">
@@ -17,6 +38,9 @@
 			<form class="mt-8 space-y-3" action="#" method="POST">
 				<Input name="Tytuł" bind:value={title} />
 				<Input name="URL Obrazka/Gifa" bind:value={url} />
+				<div
+					class="bg-black hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+					on:click={handlePostSubmit}>Dodaj mema</div>
 			</form>
 		</div>
 	</div>

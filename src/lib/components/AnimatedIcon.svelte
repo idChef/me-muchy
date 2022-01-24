@@ -9,8 +9,6 @@
 
 	$: shouldAnimate = isHovered || forceAnimation;
 
-	console.log(shouldAnimate);
-
 	const handleMouseEnter = () => {
 		isHovered = true;
 	};

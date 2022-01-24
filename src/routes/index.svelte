@@ -17,6 +17,6 @@
 
 {#if memes}
 {#each memes as meme}
-<Meme image={meme.picture} title={meme.title} />
+<Meme image={meme.picture} title={meme.title} postId={meme.id} />
 {/each}
 {/if}
