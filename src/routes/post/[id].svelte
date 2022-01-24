@@ -18,6 +18,7 @@
 	});
 </script>
 
+<div class="nav-push">
 {#if isLoading}
 	<Meme isPostMode={true} {isLoading} />
 {:else}
@@ -31,3 +32,4 @@
 		upvotes={meme.n_like}
 	/>
 {/if}
+</div>
