@@ -76,7 +76,7 @@
 	{#if isLoading || !image}
 		<div class="w-full bg-neutral-400 h-64 animate-pulse" />
 	{:else}
-		<img class="w-full bg-cover" src={image} />
+		<img class="meme-img mx-auto" src={image} />
 	{/if}
 	<div class="flex p-3 items-center">
 		<AnimatedIcon
