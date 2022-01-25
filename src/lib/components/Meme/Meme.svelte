@@ -7,9 +7,6 @@
 	import type { Post } from '$lib/types/api';
 
 	import { currentUser } from '$lib/stores/user';
-	import { get } from 'svelte/store'; 
-
-	$: userData = get(currentUser);
 
 	const handleClick = () => {
 		if (shouldNavigate) goto(`/post/${postId}`);
@@ -82,7 +79,7 @@
 	const addComment = async (comment: string) => {
 		try {
 			const res = await fetch(
-				`https://memuchyapi.azurewebsites.net/Comment/CreateComment?postId=${postId}&text=${comment}&userId=${'3fa85f64-5717-4562-b3fc-2c963f66afa6'}`,
+				`https://memuchyapi.azurewebsites.net/Comment/CreateComment?postId=${postId}&text=${comment}&userId=${$currentUser.user_id}`,
 				{
 					method: 'POST'
 				}

@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Meme from '$lib/components/Meme/Meme.svelte';
-import Spinner from '$lib/components/Spinner.svelte';
+	import Spinner from '$lib/components/Spinner.svelte';
 	import InfiniteScroll from 'svelte-infinite-scroll';
+	import { onMount } from 'svelte';
 
 	let page = 0;
 	let pageSize = 5;
@@ -11,7 +12,7 @@ import Spinner from '$lib/components/Spinner.svelte';
 	$: fetchNextPage(page);
 
 	const fetchNextPage = async (page) => {
-		if (!hasMore) return;
+		if (!hasMore || page == 0) return;
 
 		const res = await fetch(
 			`https://memuchyapi.azurewebsites.net/Post/GetAll?pageSize=${pageSize}&pageindex=${page}`
@@ -25,6 +26,13 @@ import Spinner from '$lib/components/Spinner.svelte';
 
 		memes = [...memes, ...fetchedMemes];
 	};
+
+	onMount(async () => {
+		const res = await fetch(
+			`https://memuchyapi.azurewebsites.net/Post/GetAll?pageSize=${pageSize}&pageindex=0`
+		);
+		memes = await res.json();
+	});
 </script>
 
 <svelte:head>
@@ -51,7 +59,7 @@ import Spinner from '$lib/components/Spinner.svelte';
 	{/if}
 
 	{#if hasMore}
-		<Spinner/>
+		<Spinner />
 	{:else}
 		<div class="w-full flex flex-col justify-center items-center opacity-70">
 			<img
