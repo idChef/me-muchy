@@ -1,11 +1,12 @@
 <script lang="ts">
 	import Meme from '$lib/components/Meme/Meme.svelte';
+import Spinner from '$lib/components/Spinner.svelte';
 	import InfiniteScroll from 'svelte-infinite-scroll';
 
 	let page = 0;
 	let pageSize = 5;
 	let hasMore = true;
-	
+
 	let memes = [];
 	$: fetchNextPage(page);
 
@@ -47,6 +48,18 @@
 		<Meme isLoading={true} />
 		<Meme isLoading={true} />
 		<Meme isLoading={true} />
+	{/if}
+
+	{#if hasMore}
+		<Spinner/>
+	{:else}
+		<div class="w-full flex flex-col justify-center items-center opacity-70">
+			<img
+				class="w-64"
+				src="https://media3.giphy.com/media/qQdL532ZANbjy/giphy.gif?cid=ecf05e4769679i7e34o9se5apylq0sfbllky2vo711gm81np&rid=giphy.gif&ct=g"
+			/>
+			<h1 class="font-bold mt-4">No more memes</h1>
+		</div>
 	{/if}
 </div>
 <InfiniteScroll threshold={100} on:loadMore={() => page++} window />
