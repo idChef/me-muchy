@@ -20,5 +20,11 @@
 {#each memes as meme}
 <Meme image={meme.picture} title={meme.title} postId={meme.id} upvotes={meme.n_like} downvotes={meme.n_unlike} />
 {/each}
+{:else}
+<Meme isLoading={true} />
+<Meme isLoading={true} />
+<Meme isLoading={true} />
+<Meme isLoading={true} />
+<Meme isLoading={true} />
 {/if}
 </div>

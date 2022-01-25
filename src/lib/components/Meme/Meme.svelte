@@ -6,6 +6,11 @@
 	import AnimatedIcon from '../AnimatedIcon.svelte';
 	import type { Post } from '$lib/types/api';
 
+	import { currentUser } from '$lib/stores/user';
+	import { get } from 'svelte/store'; 
+
+	$: userData = get(currentUser);
+
 	const handleClick = () => {
 		if (shouldNavigate) goto(`/post/${postId}`);
 	};
@@ -23,10 +28,12 @@
 	};
 
 	onMount(async () => {
+		if(!postId) return 
+
 		fetchComments();
 	});
 
-	export let postId: string = '404';
+	export let postId: string;
 	export let title: string = 'Title undefined';
 	export let username: string = 'username';
 	export let upvotes: number = 0;
@@ -138,11 +145,13 @@
 		{/if}
 	</div>
 	{#if isPostMode}
-		<AddComment {addComment} />
+		<AddComment {addComment}/>
+		{#if comments.length > 0}
 		<div class="flex flex-col gap-3 pb-6 divide-y">
 			{#each comments as comment}
 				<Comment comment={comment.text} />
 			{/each}
 		</div>
+		{/if}
 	{/if}
 </div>
