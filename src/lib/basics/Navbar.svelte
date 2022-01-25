@@ -28,7 +28,8 @@
 		</div>
 		<ul class="lg:flex hidden items-center space-x-10">
 			<a href="/submit" class="btn"> Dodaj mema </a>
-			<div class="relative flex select-none">
+			<div class="relative flex select-none" use:clickOutside
+			on:outclick={handleMenuClose}>
 				<img
 					src="/icons/user.svg"
 					class="w-6 h-6  grayscale object-fill hover:cursor-pointer"
@@ -37,13 +38,13 @@
 				<img
 					src="/icons/chevron-down.svg"
 					class="w-6 h-6  grayscale object-fill hover:cursor-pointer"
+					class:rotate-180={!userMenuHidden}
 					on:click={handleMenuToggle}
 				/>
 				<div
 					class="px-2 py-2 bg-white rounded-md shadow absolute right-0 top-8 transition-opacity"
 					class:hidden-element={userMenuHidden}
-					use:clickOutside
-					on:outclick={handleMenuClose}
+					
 				>
 					{#if !$currentUser}<a
 							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
