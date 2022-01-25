@@ -6,7 +6,7 @@
 	let memes;
 
 	onMount(async () => {
-		const res = await fetch(`https://memuchyapi.azurewebsites.net/Post/GetAll`);
+		const res = await fetch(`https://memuchyapi.azurewebsites.net/Post/GetAll?pageSize=100&pageindex=0`);
 		memes = await res.json();
 	});
 </script>
