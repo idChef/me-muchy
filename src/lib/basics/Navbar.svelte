@@ -1,27 +1,83 @@
 <script lang="ts">
-  let navbarHeight: number;
+	import { currentUser } from '$lib/stores/user';
+	import {clickOutside} from '$lib/directives/click_outside'
+
+	let userMenuHidden = true;
+
+	const handleMenuToggle = () => {
+		userMenuHidden = !userMenuHidden;
+	};
+
+	const handleMenuClose = () => {
+		if(!userMenuHidden)
+		userMenuHidden = true;
+	}
+
+	const handleLogout = () => {
+		userMenuHidden = true;
+		setTimeout(() => {
+			currentUser.set(false);
+		}, 1500)
+	}
 </script>
 
-
-{@html `<style>body{--navbar-height: ${navbarHeight}px;}</style>`}
-
-<nav class="z-10 fixed top-0 left-0 w-full bg-gray-100 shadow-md" bind:clientHeight={navbarHeight}>
-    <div class="flex justify-between items-center bg-white py-2 lg:px-40 md:px-20 px-10">
-      <div class="">
-        <a href="/"><img class="h-8 cursor-pointer" src="/slim-logo.svg" alt="" /></a>
-      </div>
-      <ul class="lg:flex hidden items-center space-x-10">
-        <a href="/auth/register">
-          <li class="text-lg font-semibold hover:text-red-500 transition duration-200 cursor-pointer">Konto</li>
-        </a>
-        <a href="/submit" class="btn">
-        Dodaj mema
-        </a>
-      </ul>
-      <div class="lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </div>
-    </div>
-  </nav>
+<nav class="z-10 fixed top-0 left-0 w-full bg-gray-100 shadow-md">
+	<div class="flex justify-between items-center bg-white py-2  px-10">
+		<div class="">
+			<a href="/"><img class="h-8 cursor-pointer" src="/slim-logo.svg" alt="" /></a>
+		</div>
+		<ul class="lg:flex hidden items-center space-x-10">
+			<a href="/submit" class="btn"> Dodaj mema </a>
+			<div class="relative flex select-none">
+				<img
+					src="/icons/user.svg"
+					class="w-6 h-6  grayscale object-fill hover:cursor-pointer"
+					on:click={handleMenuToggle}
+				/>
+				<img
+					src="/icons/chevron-down.svg"
+					class="w-6 h-6  grayscale object-fill hover:cursor-pointer"
+					on:click={handleMenuToggle}
+				/>
+				<div
+					class="px-2 py-2 bg-white rounded-md shadow absolute right-0 top-8 transition-opacity"
+					class:hidden-element={userMenuHidden}
+					use:clickOutside
+					on:outclick={handleMenuClose}
+				>
+					{#if !$currentUser}<a
+							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+							href="/auth/login" on:click={handleMenuClose}>Logowanie</a
+						>
+						<a
+							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+							href="/auth/register" on:click={handleMenuClose}>Rejestracja</a
+						>
+						{:else}
+						<span
+							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer select-none"
+							on:click={handleLogout}
+							>Wyloguj</span
+						>
+					{/if}
+				</div>
+			</div>
+		</ul>
+		<div class="lg:hidden">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-10 w-10 cursor-pointer"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M4 6h16M4 12h16M4 18h16"
+				/>
+			</svg>
+		</div>
+	</div>
+</nav>
