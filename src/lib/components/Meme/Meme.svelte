@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import Comment from './Comments/Comment.svelte';
 	import AddComment from './Comments/AddComment.svelte';
 	import AnimatedIcon from '../AnimatedIcon.svelte';
@@ -9,14 +10,30 @@
 		if (shouldNavigate) goto(`/post/${postId}`);
 	};
 
+	const fetchComments = async () => {
+		try {
+			const res = await fetch(
+				`https://memuchyapi.azurewebsites.net/Comment/GetByPost?postId=${postId}`
+			);
+
+			if (res.ok) comments = await res.json();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	onMount(async () => {
+		fetchComments();
+	});
+
 	export let postId: string = '404';
 	export let title: string = 'Title undefined';
 	export let username: string = 'username';
 	export let upvotes: number = 0;
 	export let downvotes: number = 0;
+	export let comments = [];
 
 	$: votes = upvotes - downvotes;
-
 
 	export let isLoading = false;
 	export let image = '';
@@ -52,6 +69,21 @@
 			if (res.ok) downvotes++;
 		} catch (e) {
 			console.error(e);
+		}
+	};
+
+	const addComment = async (comment: string) => {
+		try {
+			const res = await fetch(
+				`https://memuchyapi.azurewebsites.net/Comment/CreateComment?postId=${postId}&text=${comment}&userId=${'3fa85f64-5717-4562-b3fc-2c963f66afa6'}`,
+				{
+					method: 'POST'
+				}
+			);
+
+			if (res.ok) fetchComments();
+		} catch (error) {
+			console.error(error);
 		}
 	};
 </script>
@@ -102,17 +134,15 @@
 		{#if isLoading}
 			<div class="w-24 h-2 bg-neutral-400 rounded ml-auto animate-pulse" />
 		{:else}
-			<div class="ml-auto text-sm">0 comments</div>
+			<div class="ml-auto text-sm">{comments.length} comments</div>
 		{/if}
 	</div>
 	{#if isPostMode}
-		<AddComment />
+		<AddComment {addComment} />
 		<div class="flex flex-col gap-3 pb-6 divide-y">
-			<Comment />
-			<Comment />
-			<Comment />
-			<Comment />
-			<Comment />
+			{#each comments as comment}
+				<Comment comment={comment.text} />
+			{/each}
 		</div>
 	{/if}
 </div>

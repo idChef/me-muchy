@@ -1,3 +1,16 @@
+<script lang="ts">
+	let inputText;
+	export let addComment;
+
+	const handleKeyPress = (event) => {
+		if(event.keyCode === 13){
+			event.preventDefault();
+			addComment(inputText);
+			inputText = "";
+		}
+	}
+</script>
+
 <div class="flex mx-auto items-center mb-4">
 	<form class="w-full max-w-xl bg-white rounded-lg px-4">
 		<div class="flex flex-wrap -mx-3 mb-6">
@@ -7,6 +20,8 @@
 					name="body"
 					placeholder="Type Your Comment"
 					required
+					on:keydown={handleKeyPress}
+					bind:value={inputText}
 				/>
 			</div>
 		</div>
