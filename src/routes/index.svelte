@@ -30,7 +30,7 @@
 	<title>Me-muchy - Memy bez cenzury</title>
 </svelte:head>
 
-<div class="flex flex-col gap-14 pt-14">
+<div class="flex flex-col gap-14 py-14">
 	{#if memes}
 		{#each memes as meme}
 			<Meme
