@@ -44,7 +44,7 @@
 
 <div class="text-left p-0 font-sans">
 	<h1 class=" text-gray-800 text-3xl font-medium">Zaloguj się do swojego konta</h1>
-	<h3 class="p-1 text-gray-700">Pogchamp, ze posiadasz juz u nas konto!</h3>
+	<h3 class="text-gray-700">Pogchamp, ze posiadasz juz u nas konto!</h3>
 </div>
 <form class="p-0">
 	<div class="mt-5">

@@ -44,7 +44,7 @@ import { fireNotification } from '$lib/stores/notification';
 
 <div class="text-left p-0 font-sans">
 	<h1 class=" text-gray-800 text-3xl font-medium">Memy na wyciągnięcie ręki</h1>
-	<h3 class="p-1 text-gray-700">Dołącz do najbardziej memiarskiej społeczności.</h3>
+	<h3 class=" text-gray-700">Dołącz do najbardziej memiarskiej społeczności.</h3>
 	{#if error}<span class="text-red-500">{error}</span>{/if}
 </div>
 <form on:submit={handleSubmit} class="p-0">
