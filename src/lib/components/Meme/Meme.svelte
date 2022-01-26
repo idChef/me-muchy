@@ -10,7 +10,7 @@
 
 	export let postId: string = '';
 	export let title: string = 'Title undefined';
-	export let username: string = 'undefined';
+	$: username = 'undefined';
 	export let userId: string;
 	export let upvotes: number = 0;
 	export let downvotes: number = 0;
