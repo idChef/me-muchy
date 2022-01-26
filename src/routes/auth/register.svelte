@@ -74,20 +74,6 @@ import { fireNotification } from '$lib/stores/notification';
 		/>
 	</div>
 
-	<div class="mt-6 block p-5 md:font-sans text-xs text-gray-800">
-		<input type="checkbox" class="inline-block border-0  " />
-		<span
-			>Tworząc konto zgadzasz się na nasz
-			<a class="" href="/s/terms" target="_blank" data-test="Link">
-				<span class="underline ">Regulamin</span>
-			</a>
-			i
-			<a class="" href="/s/privacy" target="_blank" data-test="Link">
-				<span class="underline">Politykę Prywatności</span>.
-			</a>
-		</span>
-	</div>
-
 	<div class="mt-10">
 		<input
 			type="submit"
