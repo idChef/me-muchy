@@ -49,7 +49,7 @@
 				upvotes={meme.n_like}
 				downvotes={meme.n_unlike}
 				tag={meme.tag}
-				username={meme.userName}
+				userId={meme.user_id}
 			/>
 		{/each}
 	{/if}

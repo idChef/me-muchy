@@ -10,7 +10,8 @@
 
 	export let postId: string = '';
 	export let title: string = 'Title undefined';
-	export let username: string = 'undefined';
+	let username: string = 'undefined';
+	export let userId: string;
 	export let upvotes: number = 0;
 	export let downvotes: number = 0;
 	export let tag = '';
@@ -39,12 +40,24 @@
 		}
 	};
 
-	onMount(async () => {
-		console.log(postId);
+	const fetchUsername = async () => {
+		try {
+			const res = await fetch(`https://memuchyapi.azurewebsites.net/User/SearchById?Id=${userId}`);
+			if (res.ok) {
+				const userdata = await res.json();
+				username = userdata.userName;
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
+	onMount(async () => {
 		if (!postId) return;
 
 		fetchComments();
+
+		fetchUsername();
 	});
 
 	const handleUpvote = async (e) => {

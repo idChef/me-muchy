@@ -80,5 +80,10 @@
 				/>
 			</svg>
 		</div>
+		{#if $currentUser}
+			<div class="fixed w-screen h-screen  md:hidden">
+
+			</div>
+		{/if}
 	</div>
 </nav>
