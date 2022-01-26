@@ -3,12 +3,33 @@
 	import Meme from '$lib/components/Meme/Meme.svelte';
 	import { goto } from '$app/navigation';
 	import type { Post } from '$lib/types/api';
+	import { checkIfImageExists } from '$lib/utils/CheckIfImageExists';
+	import { currentUser } from '$lib/stores/user';
 
 	let title;
 	let username = 'maxiking';
 	let url = '';
+	let previewUrl = '';
+	let isAddingMeme = false;
+	let tag;
+
+	$: url, checkIfImageExists(() => (previewUrl = ''), url, handleImageValidation);
+
+	const handleImageValidation = (resolution) => {
+		if (resolution && url) previewUrl = url;
+		else previewUrl = '';
+	};
+
+	$: titleConstraints = title?.length > 0;
+
+	$: urlConstraints = previewUrl;
 
 	const handlePostSubmit = async (e) => {
+
+		if (!titleConstraints || !urlConstraints || isAddingMeme || !$currentUser) return;
+
+		isAddingMeme = true;
+
 		e.preventDefault();
 		try {
 			const res = await fetch(`https://memuchyapi.azurewebsites.net/Post/CreatePost`, {
@@ -18,19 +39,22 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					user_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+					user_id: $currentUser.id,
 					title: title,
 					picture: url,
-					tag: 'string'
+					tag: tag
 				})
 			});
 
 			if (res.ok) {
 				const newPost: Post = await res.json();
 				goto(`/post/${newPost.id}`);
+			} else {
+				isAddingMeme = false;
 			}
 		} catch (e) {
 			console.error(e);
+			isAddingMeme = false;
 		}
 	};
 </script>
@@ -45,11 +69,12 @@
 			<form class="mt-8 space-y-3" action="#" method="POST">
 				<Input name="Tytuł" bind:value={title} />
 				<Input name="URL Obrazka/Gifa" bind:value={url} />
+				<Input name="Tag" bind:value={tag} />
 				<div class="btn" on:click={handlePostSubmit}>Dodaj mema</div>
 			</form>
 		</div>
 	</div>
 	<div class="w-1/2 bg-cover bg-bottom md:block">
-		<Meme {title} {username} image={url} />
+		<Meme {title} {username} image={previewUrl} tag={tag} />
 	</div>
 </div>

@@ -30,6 +30,7 @@
 		postId={meme.id}
 		downvotes={meme.n_unlike}
 		upvotes={meme.n_like}
+		tag={meme.tag}
 	/>
 {/if}
 </div>

@@ -48,6 +48,7 @@
 				postId={meme.id}
 				upvotes={meme.n_like}
 				downvotes={meme.n_unlike}
+				tag={meme.tag}
 			/>
 		{/each}
 	{:else}

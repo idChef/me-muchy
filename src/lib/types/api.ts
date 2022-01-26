@@ -7,3 +7,13 @@ export interface Post{
     n_unlike: 0,
     tag: string
 }
+
+export interface User{
+    id: string,
+    userName: string,
+    password: string,
+    email: string,
+    avatar: string,
+    isBanned: boolean,
+    likes: number
+}

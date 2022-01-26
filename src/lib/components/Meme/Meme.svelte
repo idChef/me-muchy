@@ -25,7 +25,7 @@
 	};
 
 	onMount(async () => {
-		if(!postId) return 
+		if (!postId) return;
 
 		fetchComments();
 	});
@@ -36,6 +36,7 @@
 	export let upvotes: number = 0;
 	export let downvotes: number = 0;
 	export let comments = [];
+	export let tag;
 
 	$: votes = upvotes - downvotes;
 
@@ -97,15 +98,24 @@
 	on:click={handleClick}
 >
 	<div class="w-full flex justify-between p-3">
-		<div class="{isLoading && 'animate-pulse'} flex flex-col w-full">
+		<div class="{isLoading && 'animate-pulse'} flex flex-col w-full items-start">
 			{#if isLoading}
 				<div class="w-full flex flex-col space-y-3">
 					<div class="w-full h-2 bg-neutral-400 rounded" />
 					<div class="w-5/12 h-2 bg-neutral-400 rounded" />
 				</div>
 			{:else}
-				<span class="pt-1 ml-2 font-bold text-md">{title}</span>
-				<span class="pt-1 ml-2 font-bold text-xs">u/{username}</span>
+				<span class="pt-1 font-bold text-md">{title}</span>
+				<span class="pt-1 font-bold text-xs">u/{username}</span>
+				<span
+					class="rounded-full text-white 
+            bg-black hover:bg-gray-500 duration-300 
+            text-xs font-bold 
+            mr-1 md:mr-2 mb-2 px-2 md:px-4 py-1 
+            opacity-90 hover:opacity-100 mt-2"
+				>
+					{tag}
+				</span>
 			{/if}
 		</div>
 	</div>
@@ -142,13 +152,13 @@
 		{/if}
 	</div>
 	{#if isPostMode}
-		<AddComment {addComment}/>
+		<AddComment {addComment} />
 		{#if comments.length > 0}
-		<div class="flex flex-col gap-3 pb-6 divide-y">
-			{#each comments as comment}
-				<Comment comment={comment.text} />
-			{/each}
-		</div>
+			<div class="flex flex-col gap-3 pb-6 divide-y">
+				{#each comments as comment}
+					<Comment comment={comment.text} />
+				{/each}
+			</div>
 		{/if}
 	{/if}
 </div>
