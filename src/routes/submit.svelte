@@ -82,7 +82,7 @@
 			</form>
 		</div>
 	</div>
-	<div class="w-1/2 bg-cover bg-bottom md:block">
-		<Meme {title} image={previewUrl} {tag} />
+	<div class="w-3/4 md:w-1/2 bg-cover bg-bottom md:block">
+		<Meme {title} image={previewUrl} {tag} class="w-full md:w-6/12" />
 	</div>
 </div>

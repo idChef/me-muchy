@@ -1,6 +1,6 @@
 <script>
 	import { currentNotification } from '$lib/stores/notification';
-	import Navbar from '$lib/basics/Navbar.svelte';
+	import Navbar from '$lib/components/Navbar/Navbar.svelte';
 	import ToastNotification from '$lib/components/ToastNotification.svelte';
 
 	import '../app.css';
