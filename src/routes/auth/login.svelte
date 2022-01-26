@@ -24,6 +24,7 @@
 
 			if (res.ok) {
 				const user = await res.json();
+				if (user.userName.length > 50) return;
 				currentUser.set(user);
 
 				fireNotification('Logowanie powiodło się', 2000);
