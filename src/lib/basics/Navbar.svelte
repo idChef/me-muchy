@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { currentUser } from '$lib/stores/user';
-	import {clickOutside} from '$lib/directives/click_outside'
+	import { clickOutside } from '$lib/directives/click_outside';
 
 	let userMenuHidden = true;
 
@@ -9,16 +9,15 @@
 	};
 
 	const handleMenuClose = () => {
-		if(!userMenuHidden)
-		userMenuHidden = true;
-	}
+		if (!userMenuHidden) userMenuHidden = true;
+	};
 
 	const handleLogout = () => {
 		userMenuHidden = true;
 		setTimeout(() => {
-			currentUser.set(false);
-		}, 1500)
-	}
+			currentUser.set(undefined);
+		}, 1500);
+	};
 </script>
 
 <nav class="z-10 fixed top-0 left-0 w-full bg-gray-100 shadow-md">
@@ -27,9 +26,8 @@
 			<a href="/"><img class="h-8 cursor-pointer" src="/slim-logo.svg" alt="" /></a>
 		</div>
 		<ul class="lg:flex hidden items-center space-x-10">
-			<a href="/submit" class="btn"> Dodaj mema </a>
-			<div class="relative flex select-none" use:clickOutside
-			on:outclick={handleMenuClose}>
+			{#if $currentUser}<a href="/submit" class="btn"> Dodaj mema </a>{/if}
+			<div class="relative flex select-none" use:clickOutside on:outclick={handleMenuClose}>
 				<img
 					src="/icons/user.svg"
 					class="w-6 h-6  grayscale object-fill hover:cursor-pointer"
@@ -44,21 +42,21 @@
 				<div
 					class="px-2 py-2 bg-white rounded-md shadow absolute right-0 top-8 transition-opacity"
 					class:hidden-element={userMenuHidden}
-					
 				>
 					{#if !$currentUser}<a
 							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-							href="/auth/login" on:click={handleMenuClose}>Logowanie</a
+							href="/auth/login"
+							on:click={handleMenuClose}>Logowanie</a
 						>
 						<a
 							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-							href="/auth/register" on:click={handleMenuClose}>Rejestracja</a
+							href="/auth/register"
+							on:click={handleMenuClose}>Rejestracja</a
 						>
-						{:else}
+					{:else}
 						<span
 							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer select-none"
-							on:click={handleLogout}
-							>Wyloguj</span
+							on:click={handleLogout}>Wyloguj</span
 						>
 					{/if}
 				</div>

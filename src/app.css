@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .content-full-no-nav{
-    height: calc(100vh - 56px);
+    height: calc(100vh - 48px);
 }
 
 @layer components {
@@ -16,7 +16,7 @@
     }
 
     .nav-push{
-      margin-top: 56px;
+      margin-top: 48px;
     }
 
     .meme-img{

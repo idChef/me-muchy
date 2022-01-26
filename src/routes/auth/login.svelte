@@ -9,7 +9,7 @@
 		event.preventDefault();
 
 		try {
-			const res = await fetch(`https://memuchyapi.azurewebsites.net/User/LOGIN`, {
+			const res = await fetch(`https://memuchyapi.azurewebsites.net/User/Login`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',

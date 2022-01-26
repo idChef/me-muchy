@@ -1,12 +1,27 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { currentUser } from '$lib/stores/user';
 	import Comment from './Comments/Comment.svelte';
 	import AddComment from './Comments/AddComment.svelte';
 	import AnimatedIcon from '../AnimatedIcon.svelte';
 	import type { Post } from '$lib/types/api';
 
-	import { currentUser } from '$lib/stores/user';
+	export let postId: string = '';
+	export let title: string = 'Title undefined';
+	export let username: string = 'username';
+	export let upvotes: number = 0;
+	export let downvotes: number = 0;
+	export let tag = '';
+	export let isLoading = false;
+	export let image = '';
+	export let isPostMode = false;
+
+	let shouldNavigate = !isPostMode;
+	
+	$: comments = [];
+	$: votes = upvotes - downvotes;
+
 
 	const handleClick = () => {
 		if (shouldNavigate) goto(`/post/${postId}`);
@@ -25,25 +40,12 @@
 	};
 
 	onMount(async () => {
+		console.log(postId)
+
 		if (!postId) return;
 
 		fetchComments();
 	});
-
-	export let postId: string;
-	export let title: string = 'Title undefined';
-	export let username: string = 'username';
-	export let upvotes: number = 0;
-	export let downvotes: number = 0;
-	export let comments = [];
-	export let tag;
-
-	$: votes = upvotes - downvotes;
-
-	export let isLoading = false;
-	export let image = '';
-	export let isPostMode = false;
-	let shouldNavigate = !isPostMode;
 
 	const handleUpvote = async (e) => {
 		e.stopPropagation();
@@ -80,7 +82,7 @@
 	const addComment = async (comment: string) => {
 		try {
 			const res = await fetch(
-				`https://memuchyapi.azurewebsites.net/Comment/CreateComment?postId=${postId}&text=${comment}&userId=${$currentUser.user_id}`,
+				`https://memuchyapi.azurewebsites.net/Comment/CreateComment?postId=${postId}&text=${comment}&userId=${$currentUser.id}`,
 				{
 					method: 'POST'
 				}
@@ -148,7 +150,7 @@
 		{#if isLoading}
 			<div class="w-24 h-2 bg-neutral-400 rounded ml-auto animate-pulse" />
 		{:else}
-			<div class="ml-auto text-sm">{comments.length} comments</div>
+			<div class="ml-auto text-sm">{comments?.length} comments</div>
 		{/if}
 	</div>
 	{#if isPostMode}
