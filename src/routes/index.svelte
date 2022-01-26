@@ -13,7 +13,6 @@
 
 	const fetchNextPage = async (page) => {
 		if (!hasMore || page == 0) return;
-		console.log('fetch');
 
 		const res = await fetch(
 			`https://memuchyapi.azurewebsites.net/Post/GetAll?pageSize=${pageSize}&pageindex=${page}`
@@ -29,13 +28,10 @@
 	};
 
 	onMount(async () => {
-		page = 0;
-		memes = [];
 		const res = await fetch(
 			`https://memuchyapi.azurewebsites.net/Post/GetAll?pageSize=${pageSize}&pageindex=0`
 		);
 		memes = await res.json();
-		if (memes.length == 5) hasMore = true;
 	});
 </script>
 
@@ -70,6 +66,4 @@
 		</div>
 	{/if}
 </div>
-{#if hasMore}
-	<InfiniteScroll threshold={100} on:loadMore={() => page++} window />
-{/if}
+<InfiniteScroll threshold={100} on:loadMore={() => page++} window />
