@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+import Input from '$lib/components/Input.svelte';
 	import { fireNotification } from '$lib/stores/notification';
 
 	let username: string;
@@ -53,29 +54,13 @@
 </div>
 <form on:submit={handleSubmit} class="p-0">
 	<div class="mt-5">
-		<!-- <label for="email" class="sc-bqyKva ePvcBv">Email</label> -->
-		<input
-			type="text"
-			class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent "
-			placeholder="Email"
-			bind:value={email}
-		/>
+		<Input placeholder="Email" name="Email" bind:value={email}/>
 	</div>
 	<div class="mt-5">
-		<input
-			type="text"
-			class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent "
-			placeholder="Nazwa uzytkownika"
-			bind:value={username}
-		/>
+		<Input name="Nazwa uzytkownika" placeholder="Nazwa uzytkownika" bind:value={username}/>
 	</div>
 	<div class="mt-5">
-		<input
-			type="password"
-			class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent  "
-			placeholder="Hasło"
-			bind:value={password}
-		/>
+		<Input name="Hasło" type="password" placeholder="Hasło" bind:value={password}/>
 	</div>
 
 	<div class="mt-10">
