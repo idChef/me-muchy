@@ -81,6 +81,6 @@
 		</div>
 	</div>
 	<div class="w-1/2 bg-cover bg-bottom md:block">
-		<Meme {title} {username} image={previewUrl} {tag} />
+		<Meme {title} username={$currentUser.userName} image={previewUrl} {tag} />
 	</div>
 </div>

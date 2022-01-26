@@ -30,7 +30,7 @@
 		downvotes={meme.n_unlike}
 		upvotes={meme.n_like}
 		tag={meme.tag}
-		username={meme.userName}
+		userId={meme.user_id}
 	/>
 {/if}
 </div>
