@@ -6,6 +6,7 @@
 	import AddComment from './Comments/AddComment.svelte';
 	import AnimatedIcon from '../AnimatedIcon.svelte';
 	import type { Post } from '$lib/types/api';
+	import { fireNotification } from '$lib/stores/notification';
 
 	export let postId: string = '';
 	export let title: string = 'Title undefined';
@@ -18,10 +19,9 @@
 	export let isPostMode = false;
 
 	let shouldNavigate = !isPostMode;
-	
+
 	$: comments = [];
 	$: votes = upvotes - downvotes;
-
 
 	const handleClick = () => {
 		if (shouldNavigate) goto(`/post/${postId}`);
@@ -40,7 +40,7 @@
 	};
 
 	onMount(async () => {
-		console.log(postId)
+		console.log(postId);
 
 		if (!postId) return;
 
@@ -88,7 +88,10 @@
 				}
 			);
 
-			if (res.ok) fetchComments();
+			if (res.ok) {
+				fetchComments();
+				fireNotification('Your comment was added', 2000);
+			}
 		} catch (error) {
 			console.error(error);
 		}

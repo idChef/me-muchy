@@ -1,6 +1,7 @@
 <script>
 	import { currentUser } from '$lib/stores/user';
 	import { goto } from '$app/navigation';
+	import { fireNotification } from '$lib/stores/notification';
 
 	let email;
 	let password;
@@ -25,6 +26,7 @@
 				const user = await res.json();
 				currentUser.set(user);
 
+				fireNotification('Logged in successfully', 2000);
 				goto('/');
 			}
 		} catch (error) {

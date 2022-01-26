@@ -20,7 +20,7 @@
 	};
 </script>
 
-<nav class="z-10 fixed top-0 left-0 w-full bg-gray-100 shadow-md">
+<nav class="z-20 fixed top-0 left-0 w-full bg-gray-100 shadow-md">
 	<div class="flex justify-between items-center bg-white py-2  px-10">
 		<div class="">
 			<a href="/"><img class="h-8 cursor-pointer" src="/slim-logo.svg" alt="" /></a>
