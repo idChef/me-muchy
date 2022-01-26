@@ -40,10 +40,11 @@
 					on:click={handleMenuToggle}
 				/>
 				<div
-					class="px-2 py-2 bg-white rounded-md shadow absolute right-0 top-8 transition-opacity"
+					class="px-2 py-2 bg-white rounded-md shadow absolute right-0 top-8 transition-opacity max-w-xs text-right"
 					class:hidden-element={userMenuHidden}
 				>
-					{#if !$currentUser}<a
+					{#if !$currentUser}
+						<a
 							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
 							href="/auth/login"
 							on:click={handleMenuClose}>Logowanie</a
@@ -54,6 +55,7 @@
 							on:click={handleMenuClose}>Rejestracja</a
 						>
 					{:else}
+						<span class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm md:mt-0 focus:outline-none focus:shadow-outline select-none font-bold overflow-hidden text-ellipsis">u/{$currentUser.userName}</span>
 						<span
 							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer select-none"
 							on:click={handleLogout}>Wyloguj</span

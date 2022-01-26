@@ -90,7 +90,7 @@
 
 			if (res.ok) {
 				fetchComments();
-				fireNotification('Your comment was added', 2000);
+				fireNotification('Komentarz został dodany', 2000);
 			}
 		} catch (error) {
 			console.error(error);

@@ -28,9 +28,9 @@ import { fireNotification } from '$lib/stores/notification';
 
 			if (res.ok) {
 				goto(`/`);
-				fireNotification('Account created successfully', 2000);
+				fireNotification('Konto stworzone poprawnie', 2000);
 			} else {
-				fireNotification('Could not register with these credentials', 2000, 'error');
+				fireNotification('Nie udało się stworzyć konta', 2000, 'error');
 			}
 		} catch (error) {
 			console.error(error);

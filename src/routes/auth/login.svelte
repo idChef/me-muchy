@@ -26,14 +26,14 @@
 				const user = await res.json();
 				currentUser.set(user);
 
-				fireNotification('Logged in successfully', 2000);
+				fireNotification('Logowanie powiodło się', 2000);
 				goto('/');
 			} else {
-				fireNotification('Could not login with these credentials', 2000, 'error');
+				fireNotification('Nie udało się zalogować', 2000, 'error');
 			}
 		} catch (error) {
 			console.error(error);
-			fireNotification('Server is not responding', 2000, 'error');
+			fireNotification('Serwer nie odpowiada', 2000, 'error');
 		}
 	};
 </script>
