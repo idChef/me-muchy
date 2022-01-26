@@ -1,11 +1,21 @@
 import { writable } from 'svelte/store';
 
-export const currentNotification = writable<string>('');
+type notificationTypes = 'default' | 'error';
 
-export const fireNotification = (text: string, time: number) => {
-	currentNotification.set(text);
+export interface notificationState {
+	text: string;
+	type: notificationTypes;
+}
+
+export const currentNotification = writable<notificationState>({ text: '', type: 'default' });
+
+export const fireNotification = (text: string, time: number, type?: notificationTypes): void => {
+	currentNotification.set({
+		text: text,
+		type: type || 'default'
+	});
 
 	setTimeout(() => {
-		currentNotification.set('');
+		currentNotification.set({ text: '', type: 'default' });
 	}, time);
 };

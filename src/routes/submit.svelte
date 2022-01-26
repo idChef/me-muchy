@@ -5,6 +5,10 @@
 	import type { Post } from '$lib/types/api';
 	import { checkIfImageExists } from '$lib/utils/CheckIfImageExists';
 	import { currentUser } from '$lib/stores/user';
+	import { fireNotification } from '$lib/stores/notification';
+	import { NavigateIfNotLoggedIn } from '$lib/utils/NavigateIfNotLoggedIn';
+
+	NavigateIfNotLoggedIn();
 
 	let title;
 	let username = 'maxiking';
@@ -25,8 +29,10 @@
 	$: urlConstraints = previewUrl;
 
 	const handlePostSubmit = async (e) => {
-
-		if (!titleConstraints || !urlConstraints || isAddingMeme || !$currentUser) return;
+		if (!titleConstraints || !urlConstraints || isAddingMeme || !$currentUser) {
+			fireNotification('There is something wrong with your meme', 2000, 'error');
+			return;
+		}
 
 		isAddingMeme = true;
 
@@ -75,6 +81,6 @@
 		</div>
 	</div>
 	<div class="w-1/2 bg-cover bg-bottom md:block">
-		<Meme {title} {username} image={previewUrl} tag={tag} />
+		<Meme {title} {username} image={previewUrl} {tag} />
 	</div>
 </div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+import { fireNotification } from '$lib/stores/notification';
 
 	let username: string;
 	let email: string;
@@ -25,7 +26,12 @@
 				})
 			});
 
-			if (res.ok) goto(`/`);
+			if (res.ok) {
+				goto(`/`);
+				fireNotification('Account created successfully', 2000);
+			} else {
+				fireNotification('Could not register with these credentials', 2000, 'error');
+			}
 		} catch (error) {
 			console.error(error);
 		}

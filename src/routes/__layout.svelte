@@ -10,4 +10,4 @@
 <div class="nav-push">
 	<slot />
 </div>
-<ToastNotification message={$currentNotification} />
+<ToastNotification notification={$currentNotification} />

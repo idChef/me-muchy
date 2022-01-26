@@ -28,9 +28,12 @@
 
 				fireNotification('Logged in successfully', 2000);
 				goto('/');
+			} else {
+				fireNotification('Could not login with these credentials', 2000, 'error');
 			}
 		} catch (error) {
 			console.error(error);
+			fireNotification('Server is not responding', 2000, 'error');
 		}
 	};
 </script>
