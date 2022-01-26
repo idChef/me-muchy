@@ -24,12 +24,14 @@
 		else previewUrl = '';
 	};
 
-	$: titleConstraints = title?.length > 0;
+	$: titleConstraints = title?.length > 0 && title.length < 50;
 
 	$: urlConstraints = previewUrl;
 
+	$: tagConstraints = tag?.length < 30;
+
 	const handlePostSubmit = async (e) => {
-		if (!titleConstraints || !urlConstraints || isAddingMeme || !$currentUser) {
+		if (!titleConstraints || !urlConstraints || !tagConstraints || isAddingMeme || !$currentUser) {
 			fireNotification('There is something wrong with your meme', 2000, 'error');
 			return;
 		}

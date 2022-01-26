@@ -1,14 +1,18 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-import { fireNotification } from '$lib/stores/notification';
+	import { fireNotification } from '$lib/stores/notification';
 
 	let username: string;
 	let email: string;
 	let password: string;
 	let error: string | undefined;
 
+	$: usernameConstraints = username?.length < 30;
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		if (!usernameConstraints) return;
 
 		error = undefined;
 
