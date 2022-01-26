@@ -7,6 +7,8 @@
 	import AnimatedIcon from '../AnimatedIcon.svelte';
 	import type { Post } from '$lib/types/api';
 	import { fireNotification } from '$lib/stores/notification';
+	let customClass;
+	export { customClass as class };
 
 	export let postId: string = '';
 	export let title: string = 'Title undefined';
@@ -112,7 +114,7 @@
 </script>
 
 <div
-	class="meme-container {shouldNavigate && 'hover:border-slate-500 hover:cursor-pointer'}"
+	class="meme-container {shouldNavigate && 'hover:border-slate-500 hover:cursor-pointer'} {customClass}"
 	on:click={handleClick}
 >
 	<div class="w-full flex justify-between p-3">
@@ -140,7 +142,7 @@
 	{#if isLoading || !image}
 		<div class="w-full bg-neutral-400 h-64 animate-pulse" />
 	{:else}
-		<img class="meme-img mx-auto" src={image} />
+		<img class="meme-img mx-auto object-contain" src={image} />
 	{/if}
 	<div class="flex p-3 items-center">
 		<AnimatedIcon
