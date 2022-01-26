@@ -13,7 +13,6 @@
 	onMount(async () => {
 		const res = await fetch(`https://memuchyapi.azurewebsites.net/Post/SearchById?Id=${memeId}`);
 		meme = await res.json();
-		console.log(meme);
 		isLoading = false;
 	});
 </script>

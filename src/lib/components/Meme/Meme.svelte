@@ -161,7 +161,7 @@
 		{#if comments.length > 0}
 			<div class="flex flex-col gap-3 pb-6 divide-y">
 				{#each comments as comment}
-					<Comment comment={comment.text} />
+					<Comment comment={comment.text} username={comment.userName} />
 				{/each}
 			</div>
 		{/if}

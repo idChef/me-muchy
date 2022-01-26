@@ -23,10 +23,10 @@
 <div
 	class={`fixed right-4 top-16 text-white rounded-md px-5 
     py-4 cursor-pointer z-10 transition-opacity ${notificationStyle}`}
-	class:hidden-element={notification.text.length < 1}
+	class:hidden-element={!notification.isVisible}
 >
 	<div class="flex items-center space-x-2">
-		<svg
+		<!-- <svg
 			class="w-7 h-7"
 			fill="none"
 			stroke="currentColor"
@@ -34,7 +34,7 @@
 			xmlns="http://www.w3.org/2000/svg"
 		>
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-		</svg>
+		</svg> -->
 
 		<p class="font-bold ">{notification.text}</p>
 	</div>

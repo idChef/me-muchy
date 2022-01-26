@@ -51,12 +51,6 @@
 				tag={meme.tag}
 			/>
 		{/each}
-	{:else}
-		<Meme isLoading={true} />
-		<Meme isLoading={true} />
-		<Meme isLoading={true} />
-		<Meme isLoading={true} />
-		<Meme isLoading={true} />
 	{/if}
 
 	{#if hasMore}
