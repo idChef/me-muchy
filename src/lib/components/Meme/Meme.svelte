@@ -107,7 +107,9 @@
 				</div>
 			{:else}
 				<span class="pt-1 font-bold text-md">{postData.title}</span>
-				<span class="pt-1 font-bold text-xs ${postData.username == "GigaKoxPL" && 'text-green-500'}">u/{postData.username}</span>
+				<span class="pt-1 font-bold text-xs ${postData.username == 'GigaKoxPL' && 'text-green-500'}"
+					>u/{postData.username}</span
+				>
 				<span
 					class="rounded-full text-white 
             bg-black hover:bg-gray-500 duration-300 
@@ -136,8 +138,8 @@
 			{#if isLoading}
 				<div class="w-4 h-2 bg-neutral-400 rounded ml-auto animate-pulse" />
 			{:else}
-				{#if votes > 0}+{/if}
-				{votes}
+				{#if votes}{#if votes > 0}+{/if}
+				{votes}{:else}0{/if}
 			{/if}
 		</div>
 		<AnimatedIcon
@@ -149,7 +151,9 @@
 		{#if isLoading}
 			<div class="w-24 h-2 bg-neutral-400 rounded ml-auto animate-pulse" />
 		{:else}
-			<div class="ml-auto text-sm">{comments?.length} comments</div>
+			<div class="ml-auto text-sm">
+				{#if comments}{comments?.length}{:else}0{/if} comments
+			</div>
 		{/if}
 	</div>
 	{#if isPostMode}
