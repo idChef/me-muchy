@@ -3,6 +3,7 @@
 	import Spinner from '$lib/components/Spinner.svelte';
 	import InfiniteScroll from 'svelte-infinite-scroll';
 	import { onMount } from 'svelte';
+	import type { CompletePost, Post } from '$lib/types/api';
 
 	let page = 0;
 	let pageSize = 5;
@@ -10,6 +11,39 @@
 
 	let memes = [];
 	$: fetchNextPage(page);
+
+	const fetchComments = async (postId: string) => {
+		try {
+			const res = await fetch(
+				`https://memuchyapi.azurewebsites.net/Comment/GetByPost?postId=${postId}`
+			);
+
+			if (res.ok) return await res.json();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const fetchUsername = async (userId: string) => {
+		try {
+			const res = await fetch(`https://memuchyapi.azurewebsites.net/User/SearchById?Id=${userId}`);
+			if (res.ok) {
+				const userdata = await res.json();
+				return userdata.userName;
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const fetchMemeData = async (meme: Post): Promise<CompletePost> => {
+		const comments = await fetchComments(meme.id);
+		const username = await fetchUsername(meme.user_id);
+
+		const post = { ...meme, comments: comments, username: username };
+
+		return post;
+	};
 
 	const fetchNextPage = async (page) => {
 		if (!hasMore || page == 0) return;
@@ -24,14 +58,25 @@
 			return;
 		}
 
-		memes = [...memes, ...fetchedMemes];
+		const completedPosts = await Promise.all(
+			fetchedMemes.map(async (el) => await fetchMemeData(el))
+		);
+
+		memes = [...memes, ...completedPosts];
 	};
 
 	onMount(async () => {
 		const res = await fetch(
 			`https://memuchyapi.azurewebsites.net/Post/GetAll?pageSize=${pageSize}&pageindex=0`
 		);
-		memes = await res.json();
+
+		const fetchedMemes = await res.json();
+
+		const completedPosts = await Promise.all(
+			fetchedMemes.map(async (el) => await fetchMemeData(el))
+		);
+
+		memes = completedPosts;
 	});
 </script>
 
@@ -42,15 +87,7 @@
 <div class="flex flex-col gap-14 py-14">
 	{#if memes}
 		{#each memes as meme}
-			<Meme
-				image={meme.picture}
-				title={meme.title}
-				postId={meme.id}
-				upvotes={meme.n_like}
-				downvotes={meme.n_unlike}
-				tag={meme.tag}
-				userId={meme.user_id}
-			/>
+			<Meme postData={meme} />
 		{/each}
 	{/if}
 

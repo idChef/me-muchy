@@ -1,12 +1,23 @@
 export interface Post{
     id: string,
     user_id: string,
-    userName: string,
     title: string,
     picture: string,
     n_like: number,
     n_unlike: 0,
     tag: string
+}
+
+export interface CompletePost{
+    id: string,
+    user_id: string,
+    username: string,
+    title: string,
+    picture: string,
+    n_like: number,
+    n_unlike: 0,
+    tag: string
+    comments: any;
 }
 
 export interface User{

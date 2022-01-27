@@ -5,35 +5,28 @@
 	import Comment from './Comments/Comment.svelte';
 	import AddComment from './Comments/AddComment.svelte';
 	import AnimatedIcon from '../AnimatedIcon.svelte';
-	import type { Post } from '$lib/types/api';
+	import type { CompletePost, Post } from '$lib/types/api';
 	import { fireNotification } from '$lib/stores/notification';
 	let customClass;
 	export { customClass as class };
 
-	export let postId: string = '';
-	export let title: string = 'Title undefined';
-	$: username = 'undefined';
-	export let userId: string;
-	export let upvotes: number = 0;
-	export let downvotes: number = 0;
-	export let tag = '';
 	export let isLoading = false;
-	export let image = '';
 	export let isPostMode = false;
+	export let postData: CompletePost;
 
 	let shouldNavigate = !isPostMode;
 
-	$: comments = [];
-	$: votes = upvotes - downvotes;
+	$: comments = postData.comments;
+	$: votes = postData.n_like - postData.n_unlike;
 
 	const handleClick = () => {
-		if (shouldNavigate) goto(`/post/${postId}`);
+		if (shouldNavigate) goto(`/post/${postData.id}`);
 	};
 
 	const fetchComments = async () => {
 		try {
 			const res = await fetch(
-				`https://memuchyapi.azurewebsites.net/Comment/GetByPost?postId=${postId}`
+				`https://memuchyapi.azurewebsites.net/Comment/GetByPost?postId=${postData.id}`
 			);
 
 			if (res.ok) comments = await res.json();
@@ -42,24 +35,11 @@
 		}
 	};
 
-	const fetchUsername = async () => {
-		try {
-			const res = await fetch(`https://memuchyapi.azurewebsites.net/User/SearchById?Id=${userId}`);
-			if (res.ok) {
-				const userdata = await res.json();
-				username = userdata.userName;
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
 
 	onMount(async () => {
-		if (!postId) return;
+		if (!postData.id) return;
 
 		fetchComments();
-
-		fetchUsername();
 	});
 
 	const handleUpvote = async (e) => {
@@ -72,7 +52,7 @@
 				}
 			);
 
-			if (res.ok) upvotes++;
+			if (res.ok) postData.n_like++;
 		} catch (e) {
 			console.error(e);
 		}
@@ -88,7 +68,7 @@
 				}
 			);
 
-			if (res.ok) downvotes++;
+			if (res.ok) postData.n_unlike++;
 		} catch (e) {
 			console.error(e);
 		}
@@ -114,7 +94,8 @@
 </script>
 
 <div
-	class="meme-container {shouldNavigate && 'hover:border-slate-500 hover:cursor-pointer'} {customClass}"
+	class="meme-container {shouldNavigate &&
+		'hover:border-slate-500 hover:cursor-pointer'} {customClass}"
 	on:click={handleClick}
 >
 	<div class="w-full flex justify-between p-3">
@@ -125,8 +106,8 @@
 					<div class="w-5/12 h-2 bg-neutral-400 rounded" />
 				</div>
 			{:else}
-				<span class="pt-1 font-bold text-md">{title}</span>
-				<span class="pt-1 font-bold text-xs">u/{username}</span>
+				<span class="pt-1 font-bold text-md">{postData.title}</span>
+				<span class="pt-1 font-bold text-xs">u/{postData.username}</span>
 				<span
 					class="rounded-full text-white 
             bg-black hover:bg-gray-500 duration-300 
@@ -134,15 +115,15 @@
             mr-1 md:mr-2 mb-2 px-2 md:px-4 py-1 
             opacity-90 hover:opacity-100 mt-2"
 				>
-					{tag}
+					{postData.tag}
 				</span>
 			{/if}
 		</div>
 	</div>
-	{#if isLoading || !image}
+	{#if isLoading || !postData.picture}
 		<div class="w-full bg-neutral-400 h-64 animate-pulse" />
 	{:else}
-		<img class="meme-img mx-auto object-contain" src={image} />
+		<img class="meme-img mx-auto object-contain" src={postData.picture} />
 	{/if}
 	<div class="flex p-3 items-center">
 		<AnimatedIcon
