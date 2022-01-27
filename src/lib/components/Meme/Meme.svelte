@@ -107,7 +107,7 @@
 				</div>
 			{:else}
 				<span class="pt-1 font-bold text-md">{postData.title}</span>
-				<span class="pt-1 font-bold text-xs">u/{postData.username}</span>
+				<span class="pt-1 font-bold text-xs ${postData.username == "GigaKoxPL" && 'text-green-500'}">u/{postData.username}</span>
 				<span
 					class="rounded-full text-white 
             bg-black hover:bg-gray-500 duration-300 
