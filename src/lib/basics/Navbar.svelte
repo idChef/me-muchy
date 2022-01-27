@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { currentUser } from '$lib/stores/user';
 	import { clickOutside } from '$lib/directives/click_outside';
+	import { setAndSaveUser } from '$lib/stores/user';
 
 	let userMenuHidden = true;
 
@@ -15,7 +16,7 @@
 	const handleLogout = () => {
 		userMenuHidden = true;
 		setTimeout(() => {
-			currentUser.set(undefined);
+			setAndSaveUser(undefined);
 		}, 1500);
 	};
 </script>
@@ -55,7 +56,10 @@
 							on:click={handleMenuClose}>Rejestracja</a
 						>
 					{:else}
-						<span class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm md:mt-0 focus:outline-none focus:shadow-outline select-none font-bold overflow-hidden text-ellipsis">u/{$currentUser.userName}</span>
+						<span
+							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm md:mt-0 focus:outline-none focus:shadow-outline select-none font-bold overflow-hidden text-ellipsis"
+							>u/{$currentUser.userName}</span
+						>
 						<span
 							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-sm font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer select-none"
 							on:click={handleLogout}>Wyloguj</span
@@ -81,9 +85,7 @@
 			</svg>
 		</div>
 		{#if $currentUser}
-			<div class="fixed w-screen h-screen  md:hidden">
-
-			</div>
+			<div class="fixed w-screen h-screen  md:hidden" />
 		{/if}
 	</div>
 </nav>

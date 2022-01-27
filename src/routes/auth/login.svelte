@@ -2,6 +2,7 @@
 	import { currentUser } from '$lib/stores/user';
 	import { goto } from '$app/navigation';
 	import { fireNotification } from '$lib/stores/notification';
+	import { setAndSaveUser } from '$lib/stores/user';
 
 	let email;
 	let password;
@@ -25,7 +26,7 @@
 			if (res.ok) {
 				const user = await res.json();
 				if (user.userName.length > 50) return;
-				currentUser.set(user);
+				setAndSaveUser(user)
 
 				fireNotification('Logowanie powiodło się', 2000);
 				goto('/');

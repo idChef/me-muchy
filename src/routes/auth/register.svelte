@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { fireNotification } from '$lib/stores/notification';
+	import { setAndSaveUser } from '$lib/stores/user';
 
 	let username: string;
 	let email: string;
@@ -33,6 +34,8 @@
 			if (res.ok) {
 				goto(`/`);
 				fireNotification('Konto stworzone poprawnie', 2000);
+				const user = await res.json();
+				setAndSaveUser(user)
 			} else {
 				fireNotification('Nie udało się stworzyć konta', 2000, 'error');
 			}
