@@ -52,7 +52,7 @@
 				}
 			);
 
-			if (res.ok) postData.n_like++;
+			if (res.ok) votes++;
 		} catch (e) {
 			console.error(e);
 		}
@@ -68,7 +68,7 @@
 				}
 			);
 
-			if (res.ok) postData.n_unlike++;
+			if (res.ok) votes--;
 		} catch (e) {
 			console.error(e);
 		}
