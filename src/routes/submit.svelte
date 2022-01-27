@@ -2,7 +2,7 @@
 	import Input from '$lib/components/Input.svelte';
 	import Meme from '$lib/components/Meme/Meme.svelte';
 	import { goto } from '$app/navigation';
-	import type { Post } from '$lib/types/api';
+	import type { CompletePost, Post } from '$lib/types/api';
 	import { checkIfImageExists } from '$lib/utils/CheckIfImageExists';
 	import { currentUser } from '$lib/stores/user';
 	import { fireNotification } from '$lib/stores/notification';
@@ -16,6 +16,13 @@
 	let previewUrl = '';
 	let isAddingMeme = false;
 	let tag;
+
+	$: meme  = {
+		username: $currentUser.userName,
+		title: title,
+		picture: url,
+		tag: tag,
+	}
 
 	$: url, checkIfImageExists(() => (previewUrl = ''), url, handleImageValidation);
 
@@ -83,6 +90,6 @@
 		</div>
 	</div>
 	<div class="w-3/4 md:w-1/2 bg-cover bg-bottom md:block">
-		<Meme {title} image={previewUrl} {tag} class="w-full md:w-6/12" />
+		<Meme postData={meme} class="w-full md:w-6/12" />
 	</div>
 </div>
