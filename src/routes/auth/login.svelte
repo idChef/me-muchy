@@ -2,11 +2,7 @@
 	import { currentUser } from '$lib/stores/user';
 	import { goto } from '$app/navigation';
 	import { fireNotification } from '$lib/stores/notification';
-<<<<<<< HEAD
 	import { setAndSaveUser } from '$lib/stores/user';
-=======
-import Input from '$lib/components/Input.svelte';
->>>>>>> 05d4fe99fa68763c7e9b9f61b38be48ad007528a
 
 	let email;
 	let password;
@@ -55,11 +51,20 @@ import Input from '$lib/components/Input.svelte';
 <form class="p-0">
 	<div class="mt-5">
 		<!-- <label for="email" class="sc-bqyKva ePvcBv">Email</label> -->
-		<Input name="Email" type="text"placeholder="Email"
-		bind:value={email} />
+		<input
+			type="text"
+			class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent "
+			placeholder="Email"
+			bind:value={email}
+		/>
 	</div>
 	<div class="mt-5">
-		<Input name="Hasło" type="password" placeholder="Hasło" bind:value={password}/>
+		<input
+			type="password"
+			class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent  "
+			placeholder="Hasło"
+			bind:value={password}
+		/>
 	</div>
 
 	<div class="mt-10">
