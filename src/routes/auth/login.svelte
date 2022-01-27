@@ -2,7 +2,8 @@
 	import { currentUser } from '$lib/stores/user';
 	import { goto } from '$app/navigation';
 	import { fireNotification } from '$lib/stores/notification';
-import Input from '$lib/components/Input.svelte';
+	import Input from '$lib/components/Input.svelte';
+	import { setAndSaveUser } from '$lib/stores/user';
 
 	let email;
 	let password;
@@ -29,6 +30,7 @@ import Input from '$lib/components/Input.svelte';
 				currentUser.set(user);
 
 				fireNotification('Logowanie powiodło się', 2000);
+				setAndSaveUser(user);
 				goto('/');
 			} else {
 				fireNotification('Nie udało się zalogować', 2000, 'error');
@@ -51,11 +53,10 @@ import Input from '$lib/components/Input.svelte';
 <form class="p-0">
 	<div class="mt-5">
 		<!-- <label for="email" class="sc-bqyKva ePvcBv">Email</label> -->
-		<Input name="Email" type="text"placeholder="Email"
-		bind:value={email} />
+		<Input name="Email" type="text" placeholder="Email" bind:value={email} />
 	</div>
 	<div class="mt-5">
-		<Input name="Hasło" type="password" placeholder="Hasło" bind:value={password}/>
+		<Input name="Hasło" type="password" placeholder="Hasło" bind:value={password} />
 	</div>
 
 	<div class="mt-10">

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { currentUser } from '$lib/stores/user';
+	import { currentUser, setAndSaveUser } from '$lib/stores/user';
 	import { clickOutside } from '$lib/directives/click_outside';
 
 	let userMenuHidden = true;
 
-	const handleMenuToggle = () => { 
-		console.log('toggle')
+	const handleMenuToggle = () => {
+		console.log('toggle');
 		userMenuHidden = !userMenuHidden;
 	};
 
@@ -16,7 +16,7 @@
 	const handleLogout = () => {
 		userMenuHidden = true;
 		setTimeout(() => {
-			currentUser.set(undefined);
+			setAndSaveUser(undefined);
 		}, 1500);
 	};
 </script>
@@ -57,7 +57,10 @@
 						/>
 					</svg>
 				</div>
-				<div class="fixed flex flex-col  justify-center  items-center w-screen h-screen top-0 left-0 bg-white pt-16 md:hidden" class:hidden-element={userMenuHidden}>
+				<div
+					class="fixed flex flex-col  justify-center  items-center w-screen h-screen top-0 left-0 bg-white pt-16 md:hidden"
+					class:hidden-element={userMenuHidden}
+				>
 					{#if !$currentUser}
 						<a
 							class="block px-4 py-2 mt-2  bg-transparent rounded-lg  text-md font-semibold md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
@@ -109,6 +112,5 @@
 				</div>
 			</div>
 		</ul>
-		
 	</div>
 </nav>
