@@ -4,7 +4,7 @@
 </script>
 
 <div class="flex flex-col mx-4 pt-3 first:pt-0">
-    <span class="font-bold pb-1">{username}</span>
+    <span class={`font-bold pb-1 ${username == "GigaKoxPL" && 'text-green-500'}`}>{username}</span>
     <span class="text-sm">{comment}</span>
     <!-- <div class="flex items-center select-none">
         <img src="/icons/ArrowUp.svg" class="w-4 h-4  grayscale object-fill hover:cursor-pointer"/>
