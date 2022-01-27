@@ -2,6 +2,7 @@
 	export let name: string;
 	export let type: string = 'text';
 	export let value
+	export let placeholder: string = '';
 
     const handleInput = (event) => {
         value = event.target.value;
@@ -13,6 +14,7 @@
 		id={name}
 		type={type}
 		{name}
+		{placeholder}
 		class="h-full w-full border-gray-300 px-2 transition-all border-blue rounded-sm"
 		on:input={handleInput}
 	/>
@@ -30,6 +32,7 @@
 		top: 50%;
 		transform: translateY(-50%);
 		font-size: 14px;
+		padding-right:20px;
 	}
 	input:not(:focus) + label {
 		color: rgba(70, 70, 70, 1);
