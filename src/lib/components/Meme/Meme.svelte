@@ -16,8 +16,8 @@
 
 	let shouldNavigate = !isPostMode;
 
-	$: comments = postData.comments;
-	$: votes = postData.n_like - postData.n_unlike;
+	let comments;
+	let votes;
 
 	const handleClick = () => {
 		if (shouldNavigate) goto(`/post/${postData.id}`);
@@ -35,18 +35,18 @@
 		}
 	};
 
-
 	onMount(async () => {
-		if (!postData.id) return;
+		if (!postData?.id) return;
 
-		fetchComments();
+		comments = postData.comments;
+		votes = postData.n_like - postData.n_unlike;
 	});
 
 	const handleUpvote = async (e) => {
 		e.stopPropagation();
 		try {
 			const res = await fetch(
-				`https://memuchyapi.azurewebsites.net/Post/LikePost?postId=${postId}`,
+				`https://memuchyapi.azurewebsites.net/Post/LikePost?postId=${postData.id}`,
 				{
 					method: 'PUT'
 				}
@@ -62,7 +62,7 @@
 		e.stopPropagation();
 		try {
 			const res = await fetch(
-				`https://memuchyapi.azurewebsites.net/Post/UnlikePost?postId=${postId}`,
+				`https://memuchyapi.azurewebsites.net/Post/UnlikePost?postId=${postData.id}`,
 				{
 					method: 'PUT'
 				}
@@ -77,7 +77,7 @@
 	const addComment = async (comment: string) => {
 		try {
 			const res = await fetch(
-				`https://memuchyapi.azurewebsites.net/Comment/CreateComment?postId=${postId}&text=${comment}&userId=${$currentUser.id}`,
+				`https://memuchyapi.azurewebsites.net/Comment/CreateComment?postId=${postData.id}&text=${comment}&userId=${$currentUser.id}`,
 				{
 					method: 'POST'
 				}
@@ -154,7 +154,7 @@
 	</div>
 	{#if isPostMode}
 		<AddComment {addComment} />
-		{#if comments.length > 0}
+		{#if comments && comments.length > 0}
 			<div class="flex flex-col gap-3 pb-6 divide-y">
 				{#each comments as comment}
 					<Comment comment={comment.text} username={comment.userName} />
