@@ -5,10 +5,14 @@ import { browser } from '$app/env';
 const getUserFromStorage = () => {
 	if (!browser) return;
 
-	const userData = window.localStorage.getItem('currentUser');
+	try {
+		const userData = window.localStorage.getItem('currentUser');
 
-	if (userData === '') return undefined;
-	else return JSON.parse(userData);
+		if (userData === '') return undefined;
+		else return JSON.parse(userData);
+	} catch (error) {
+		console.error(error);
+	}
 };
 
 // This is obviously unsafe but the app is just an example
